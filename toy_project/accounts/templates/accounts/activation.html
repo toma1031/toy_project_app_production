@@ -1,0 +1,21 @@
+{% block subject %}
+【Retro Toys】Thank you for registration!
+{% endblock subject %}
+
+{% block text_body %}
+Dear {{ name }}.
+
+Thank you for using Retro Toys.
+
+Please complete the registration using the link below.
+{% comment %} {{ protocol }}://{{ domain }}/{{ url|safe }} {% endcomment %}
+{% comment %} http://localhost:3000/sign_up_activation/{{ domain }}/{{ url|safe }} {% endcomment %}
+http://localhost:3000/sign_up_activation/?uid={{ uid }}&token={{ token }}
+
+By registering, you can use all the functions of the Retro Toys App.
+
+--------------------------------------
+Publisher: Retro Toys
+--------------------------------------
+
+{% endblock text_body %}
