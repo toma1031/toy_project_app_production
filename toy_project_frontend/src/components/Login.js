@@ -44,7 +44,6 @@ const Login = (props) => {
         history.push("/");
       })
       .catch((err) => {
-        console.log("miss");
         alert("Email or Password is wrong!");
       });
   };

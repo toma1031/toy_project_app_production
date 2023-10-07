@@ -26,7 +26,6 @@ class UserSerializer(serializers.ModelSerializer):
             return user
 
     def update(self,instance,validated_data):
-        print("123456789")
         if 'password' in validated_data:
             password=validated_data.pop('password')
             instance.set_password(password)  
