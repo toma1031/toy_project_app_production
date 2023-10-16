@@ -46,18 +46,59 @@ Exit MySql with the command below.
 mysql> quit;
 ```
 
-6. Install packages.
+6. Go to toy_project folder(Backend) at terminal and let's create a virtual environment (Assuming it is named myenv),
+```bash
+python3 -m venv myenv
+```
+
+After that, you should do activate the virtual environment.
+```bash
+source env/bin/activate 
+```
+
+You can deactivate the virtual environment with the following command(Only you want to down the backend)
+```bash
+deactivate
+```
+
+7. Do Install packages.
 ```bash
 pip install -r requirements.txt
 ```
 
-7, Go to toy_project folder(Backend) at terminal and let's do migration with the following command.
+8. Generate SECRET_KEY in python shell.
+```bash
+python
+```
+
+and then,
+
+```bash
+ get_random_secret_key() 
+```
+
+This will output a SECRET_KEY that you can use in next step.
+
+Ctrl + C will stop pytho shell.
+
+
+9. Creat .env file in toy_project folder and you write this
+```
+DEBUG=TRUE
+SECRET_KEY=Put_SECRET_KEY_here
+
+DATABASESPASSWORD=
+EMAIL=
+PASSWORD=
+```
+
+10, Let's do migration with the following command.
 ```bash
 python manage.py migrate
 python manage.py makemigrations
 ```
 
-8.Check if the site starts up with Runserver.
+11.Check if the site starts up with Runserver.
 ```bash
 python manage.py runserver
 ```
@@ -65,7 +106,7 @@ After that,
 If you can see the project at http://localhost:8000/,
 backend side is ready for use.
 
-9. Create super user
+12. Create super user
 Create a superuser using Shell commands.
 ```bash
 python manage.py shell
@@ -92,15 +133,15 @@ Now you have a super user
 Try accessing http://localhost:8000/admin and see if you can log in.
 
 
-10. Go to toy_project_frontend folder(Frontend) at terminal and do following command at terminal for installing library.
+13. Go to toy_project_frontend folder(Frontend) at terminal and do following command at terminal for installing library.
 ```bash
 $ npm install
 ```
 
-11. In the toy_project_frontend directory, you can run.
+14. In the toy_project_frontend directory, you can run.
 ```bash
 $ npm start
 ```
 
-12. Runs the app in the development mode.\
+15. Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
