@@ -79,8 +79,7 @@ and then,
 
 This will output a SECRET_KEY that you can use in next step.
 
-Ctrl + C will stop pytho shell.
-
+Ctrl + C will stop python shell.
 
 9. Creat .env file in toy_project folder and you write this
 ```
