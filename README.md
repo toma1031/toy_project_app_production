@@ -121,7 +121,7 @@ In [2]: state = State.objects.create(state='NY')
 In [3]: state.save()
 In [4]: from accounts.models import User
 In [5]: user = User.objects.create_user(username='admin', email='admin@gmail.com', password='testpass', city='New York', user.zipcode=11011, is_active=True, is_superuser=True, is_staff=True)
-In [6]:user.set_password('testpass')
+In [6]: user.set_password('testpass')
 In [7]: user.save()
 ```
 Now you have a superuser
