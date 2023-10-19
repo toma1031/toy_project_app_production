@@ -34,6 +34,11 @@ $ mysql -u root
 mysql>
 ```
 
+When you want to stop MySQL sever, you can use the following command.
+```bash
+mysql.server stop
+```
+
 5. Now create the database that will be used in this project. 
 Run the following command while connected to mysql.
 ```bash
@@ -53,7 +58,7 @@ python3 -m venv myenv
 
 After that, you should do activate the virtual environment.
 ```bash
-source env/bin/activate 
+source myenv/bin/activate 
 ```
 
 You can deactivate the virtual environment with the following command(Only you want to down the backend)
@@ -74,7 +79,8 @@ python
 and then,
 
 ```bash
- get_random_secret_key() 
+from django.core.management.utils import get_random_secret_key
+get_random_secret_key() 
 ```
 
 This will output a SECRET_KEY that you can use in next step.
@@ -110,25 +116,15 @@ Create a superuser using Shell commands.
 ```bash
 python manage.py shell
 
-In [1]: from adopt_animal.models import State
-In [2]: from accounts.models import State
-In [3]: state = State.objects.create(state='NY')
-In [4]: state.save()
-In [5]: from accounts.models import User
-In [6]: User(
-    ...: username='your_username',
-    ...: password='your_password',
-    ...: state=state,
-    ...: city='New York',
-    ...: zipcode=11011,
-    ...: is_active=True,
-    ...: is_superuser=True,
-    ...: is_staff=True
-    ...: ).save()
-In [7]: user = User.objects.get(id=1)
-In [8]: user.save()
+In [1]: from accounts.models import State
+In [2]: state = State.objects.create(state='NY')
+In [3]: state.save()
+In [4]: from accounts.models import User
+In [5]: user = User.objects.create_user(username='admin', email='admin@gmail.com', password='testpass', city='New York', user.zipcode=11011, is_active=True, is_superuser=True, is_staff=True)
+In [6]:user.set_password('testpass')
+In [7]: user.save()
 ```
-Now you have a super user
+Now you have a superuser
 Try accessing http://localhost:8000/admin and see if you can log in.
 
 
