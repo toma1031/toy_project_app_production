@@ -120,9 +120,13 @@ In [1]: from accounts.models import State
 In [2]: state = State.objects.create(state='NY')
 In [3]: state.save()
 In [4]: from accounts.models import User
-In [5]: user = User.objects.create_user(username='admin', email='admin@gmail.com', password='testpass', city='New York', user.zipcode=11011, is_active=True, is_superuser=True, is_staff=True)
-In [6]: user.set_password('testpass')
-In [7]: user.save()
+In [5]: User.objects.create_user(username='admin', email='admin@gmail.com', password='testpass')
+In [5]: user.city = 'New York'
+In [6]: user.zipcode = 11011
+In [7]: user.is_active = True
+In [8]: user.is_superuser = True
+In [9]: user.is_staff = True
+In [10]: user.save()
 ```
 Now you have a superuser
 Try accessing http://localhost:8000/admin and see if you can log in.
