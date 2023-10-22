@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { apiURL } from "./Default";
 import { useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { setUserID, setUserEmail, setUsername } from "../stores/user";
@@ -15,35 +15,22 @@ import Carousel from "react-bootstrap/Carousel";
 const cookies = new Cookies();
 
 const Top = () => {
-  const { id } = useParams();
   const [post, setPost] = useState();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const userID = useSelector((state) => state.user.userID);
-
   const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
 
   const [len, setLen] = useState(0);
   const [flug, setFlug] = useState(true);
   const [initial_screen, setInitial] = useState(true);
-  const user_email = useSelector((state) => state.user.userEmail);
   const user_username = useSelector((state) => state.user.Username);
 
   let slideIndex = 1;
   showSlides(slideIndex);
-
-  function plusSlides(n) {
-    showSlides((slideIndex += n));
-  }
-
-  function currentSlide(n) {
-    showSlides((slideIndex = n));
-  }
 
   function showSlides(n) {
     let i;

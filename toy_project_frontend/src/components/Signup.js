@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const Signup = () => {
+  // HookのuseFormを使う
   const {
     register,
     handleSubmit,
@@ -16,6 +17,12 @@ const Signup = () => {
 
   const [isRevealPassword, setIsRevealPassword] = useState(false);
   const signup = async (data) => {
+    console.log("Body sent to server", {
+      email: data.email,
+      username: data.name,
+      password: data.password,
+      re_password: data.re_password,
+    });
     removeCookie("accesstoken", { path: "/" }, { httpOnly: true });
     removeCookie("refreshtoken", { path: "/" }, { httpOnly: true });
     const res = await axios
@@ -25,12 +32,13 @@ const Signup = () => {
         password: data.password,
         re_password: data.re_password,
       })
-      .then(function (response) {
+      .then(function (res) {
         alert("Signup is completed! Please login.");
         history.push("/login");
       })
       .catch((err) => {
         alert("Email address or user name that has already been registered.");
+        console.log(err);
       });
   };
   return (
