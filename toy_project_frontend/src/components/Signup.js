@@ -23,8 +23,6 @@ const Signup = () => {
       password: data.password,
       re_password: data.re_password,
     });
-    removeCookie("accesstoken", { path: "/" }, { httpOnly: true });
-    removeCookie("refreshtoken", { path: "/" }, { httpOnly: true });
     const res = await axios
       .post(`${apiURL}users/`, {
         email: data.email,

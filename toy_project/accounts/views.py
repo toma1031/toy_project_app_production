@@ -27,8 +27,9 @@ from rest_framework import generics, status, views, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from djoser import utils
 from djoser.conf import settings
+from djoser import signals, utils
+from djoser.compat import get_user_email
 
 
 class TokenCreateView(utils.ActionViewMixin, generics.GenericAPIView):
@@ -88,6 +89,64 @@ class UserViewSet(viewsets.ModelViewSet):
             post_data.append(liked_posts[i].post)
         data = PostSerializer(post_data,many=True).data
         return Response(data,status=status.HTTP_200_OK)
+
+
+    @action(detail=False, permission_classes=[IsAuthenticated])
+    def my_posts(self, request, pk=None):
+        my_posts = request.user.user_posts.all()
+        post_data = []
+        for i in range(len(my_posts)):
+            post_data.append(my_posts[i])
+        data = PostSerializer(post_data,many=True).data
+        return Response(data,status=status.HTTP_200_OK)
+
+    def create_user(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(username, email, password, **extra_fields)
+
+    def create_superuser(self, email, username, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+        return self._create_user(username, email, password, **extra_fields)
+
+    def perform_create(self, serializer, *args, **kwargs):
+        user = serializer.save(*args, **kwargs)
+        signals.user_registered.send(
+            sender=self.__class__, user=user, request=self.request
+        )
+
+        context = {"user": user}
+        to = [get_user_email(user)]
+        settings.EMAIL.activation(self.request, context).send(to)
+
+
+    @action(["post"], detail=False)
+    def activation(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(is_active = True)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(["post"], detail=False)
+    def resend_activation(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.get_user(is_active=False)
+
+        if not settings.SEND_ACTIVATION_EMAIL or not user:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        context = {"user": user}
+        to = [get_user_email(user)]
+        settings.EMAIL.activation(self.request, context).send(to)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ObtainTokenPairWithColorView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
