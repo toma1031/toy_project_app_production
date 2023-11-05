@@ -91,6 +91,7 @@ const Post = () => {
       })
       .catch((err) => {
         alert("error");
+        console.log(err);
       });
   };
   return (
