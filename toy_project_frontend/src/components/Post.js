@@ -104,31 +104,31 @@ const Post = () => {
               <div className="row">
                 <div className="form-group col-md-6">
                   <label for="title" className="post_label">
-                    Title
+                    Title (Required)
                   </label>
                   <input
                     placeholder="Title"
                     className="form-control post_form"
                     {...register("title", { required: true })}
                   />
-                  {errors.title && <p>Please put title</p>}
+                  {errors.title && <p p className="error-message">Please put title</p>}
                 </div>
                 <div className="form-group col-md-6">
                   <label for="maker" className="post_label">
-                    Maker
+                    Maker (Required)
                   </label>
                   <input
                     placeholder="Maker"
                     className="form-control post_form"
                     {...register("maker", { required: true })}
                   />
-                  {errors.maker && <p>Please put maker</p>}
+                  {errors.maker && <p p className="error-message">Please put maker</p>}
                 </div>
               </div>
               <div className="row">
                 <div className="form-group col-md-6">
                   <label for="condition" className="post_label">
-                    Condition
+                    Condition (Required)
                   </label>
                   <select
                     className="form-control post_form"
@@ -144,7 +144,7 @@ const Post = () => {
                 </div>
                 <div className="form-group col-md-6">
                   <label for="price" className="post_label">
-                    Price($)
+                    Price($) (Required)
                   </label>
                   <input
                     placeholder="Price"
@@ -152,24 +152,24 @@ const Post = () => {
                     type="number"
                     {...register("price", { required: true })}
                   />
-                  {errors.price && <p>Please put price</p>}
+                  {errors.price && <p p className="error-message">Please put price</p>}
                 </div>
               </div>
               <div className="row">
                 <div className="form-group col-md-6">
                   <label for="description" className="post_label">
-                    Description
+                    Description (Required)
                   </label>
                   <input
                     placeholder="Description"
                     className="form-control post_form"
                     {...register("description", { required: true })}
                   />
-                  {errors.description && <p>Please put description</p>}
+                  {errors.description && <p p className="error-message">Please put description</p>}
                 </div>
                 <div className="form-group col-md-6">
                   <label for="shipping_price" className="post_label">
-                    Shipping Price($)
+                    Shipping Price($) (Required)
                   </label>
                   <input
                     placeholder="Shipping Price"
@@ -177,11 +177,11 @@ const Post = () => {
                     type="number"
                     {...register("shipping_price", { required: true })}
                   />
-                  {errors.shipping_price && <p>Please put shipping price</p>}
+                  {errors.shipping_price && <p p className="error-message">Please put shipping price</p>}
                 </div>
               </div>
               <label for="photo" className="post_label">
-                Photo
+                Photo (Required)
               </label>
               <input
                 type="file"
@@ -189,6 +189,7 @@ const Post = () => {
                 className="form-control post_form"
                 accept="image/*"
               />
+              {errors.title && <p p className="error-message">Please upload photo</p>} 
               <label for="photo2" className="post_label">
                 Photo2
               </label>
