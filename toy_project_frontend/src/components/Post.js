@@ -13,11 +13,18 @@ const Post = () => {
   const [photo3, setPhoto3] = useState("");
   const [photo4, setPhoto4] = useState("");
   const [photo5, setPhoto5] = useState("");
+  const [photoError, setPhotoError] = useState("");
   const changeImage = (e) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    const file = e.target.files[0];
-    if (file.type !== "image/jpeg" && file.type !== "image/png") return;
-    setPhoto(() => e.target.files[0]);
+    if (!e.target.files || e.target.files.length === 0) {
+      alert("Need to choose photo");
+    } else {
+      const file = e.target.files[0];
+      if (file.type !== "image/jpeg" && file.type !== "image/png") {
+        alert("Please select an image in JPEG or PNG format.");
+      } else {
+        setPhoto(() => e.target.files[0]);
+      }
+    }
   };
   const changeImage2 = (e) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -66,6 +73,10 @@ const Post = () => {
   ];
 
   const post = async (data) => {
+    if (!photo) {
+      setPhotoError("Need to choose photo");
+      return;
+    }
     let formdata = new FormData();
     formdata.append("title", data.title);
     formdata.append("maker", data.maker);
@@ -111,7 +122,9 @@ const Post = () => {
                     className="form-control post_form"
                     {...register("title", { required: true })}
                   />
-                  {errors.title && <p p className="error-message">Please put title</p>}
+                  {errors.title && (
+                    <p className="error-message">Please put title</p>
+                  )}
                 </div>
                 <div className="form-group col-md-6">
                   <label for="maker" className="post_label">
@@ -122,7 +135,9 @@ const Post = () => {
                     className="form-control post_form"
                     {...register("maker", { required: true })}
                   />
-                  {errors.maker && <p p className="error-message">Please put maker</p>}
+                  {errors.maker && (
+                    <p className="error-message">Please put maker</p>
+                  )}
                 </div>
               </div>
               <div className="row">
@@ -152,7 +167,9 @@ const Post = () => {
                     type="number"
                     {...register("price", { required: true })}
                   />
-                  {errors.price && <p p className="error-message">Please put price</p>}
+                  {errors.price && (
+                    <p className="error-message">Please put price</p>
+                  )}
                 </div>
               </div>
               <div className="row">
@@ -165,7 +182,9 @@ const Post = () => {
                     className="form-control post_form"
                     {...register("description", { required: true })}
                   />
-                  {errors.description && <p p className="error-message">Please put description</p>}
+                  {errors.description && (
+                    <p className="error-message">Please put description</p>
+                  )}
                 </div>
                 <div className="form-group col-md-6">
                   <label for="shipping_price" className="post_label">
@@ -177,7 +196,9 @@ const Post = () => {
                     type="number"
                     {...register("shipping_price", { required: true })}
                   />
-                  {errors.shipping_price && <p p className="error-message">Please put shipping price</p>}
+                  {errors.shipping_price && (
+                    <p className="error-message">Please put shipping price</p>
+                  )}
                 </div>
               </div>
               <label for="photo" className="post_label">
@@ -189,7 +210,7 @@ const Post = () => {
                 className="form-control post_form"
                 accept="image/*"
               />
-              {errors.title && <p p className="error-message">Please upload photo</p>} 
+              {photoError && <p className="error-message">{photoError}</p>}
               <label for="photo2" className="post_label">
                 Photo2
               </label>
