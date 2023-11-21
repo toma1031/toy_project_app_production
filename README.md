@@ -133,24 +133,24 @@ Try accessing http://localhost:8000/admin and see if you can log in.
 
 13. Login to http://localhost:8000/admin and make Condition Tag like the following.
 
-  "Brand New", id: 1
-  "Mint", id: 2
-  "Excellent", id: 3
-  "Very Good", id: 4
-  "Good", id: 5
-  "Fair", id: 6
-  "Poor", id: 7
-  "Non Functioning", id: 8
+"Brand New", id: 1
+"Mint", id: 2
+"Excellent", id: 3
+"Very Good", id: 4
+"Good", id: 5
+"Fair", id: 6
+"Poor", id: 7
+"Non Functioning", id: 8
 
 14. Go to toy_project_frontend folder(Frontend) at terminal and do following command at terminal for installing library.
 ```bash
 $ npm install
 ```
 
-14. In the toy_project_frontend directory, you can run.
+15. In the toy_project_frontend directory, you can run.
 ```bash
 $ npm start
 ```
 
-15. Runs the app in the development mode.\
+16. Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
