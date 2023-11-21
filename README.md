@@ -142,7 +142,7 @@ Try accessing http://localhost:8000/admin and see if you can log in.
   "Poor", id: 7
   "Non Functioning", id: 8
 
-13. Go to toy_project_frontend folder(Frontend) at terminal and do following command at terminal for installing library.
+14. Go to toy_project_frontend folder(Frontend) at terminal and do following command at terminal for installing library.
 ```bash
 $ npm install
 ```
